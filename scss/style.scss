@@ -1,0 +1,129 @@
+
+@import "variables";
+@import "reset";
+@import "fonts";
+@import "minxins";
+
+/* Selector universal */
+
+.centrar{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-flow: row wrap;
+}
+
+ .centrar.principal{
+    font-family: $fontFamily;
+ }
+
+ .div {
+    color:  $colorRojo;
+ }
+
+ .button {
+    border: none;
+    color: colorNegro;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10%;
+}
+
+.button.verde{
+    background-color: $colorDarkModerateLimeGreen;
+}
+
+.button.rojo{
+    background-color: $colorDarkModerateOrange;
+}
+
+
+.logos{
+    display: flex;
+    justify-content: center;
+}
+
+#tabla{
+    border: 1px solid $colorAzul;
+    border-collapse: collapse;
+    width: 50%;
+    tr {
+        text-align: left;
+        width: 100%;
+        font-size: 25px;
+    }
+}
+
+.dimension{
+    @include tamano(300px,300px);
+}
+
+.dimensionSabores{
+    @extend .dimension;
+}
+
+.dimensionDelicias{
+    @extend .dimension;
+}
+
+.box1 {
+    display: inline-block;
+    background-color: $colorLightGrayishBlue;
+    @include tamano(350px,350px);
+    border-width: 1px;
+    padding-left: 10px;
+    padding: 10px 30px;
+    overflow: scroll;
+    box-sizing: border-box;
+    margin: 10px 20px;
+}
+
+
+.dimensionHistoria{
+    @extend .dimension;
+    display: inline-block;
+    background-color: $colorLightGrayishBlue;
+    @include tamano(300px,300px);
+    overflow-y: scroll;
+    margin: 10px 20px;
+}
+
+
+.dimensionFooter{
+    @extend .dimension;
+    @include tamano(50px,50px);
+}
+
+.dimensionComunicacion{
+    @extend .dimension;
+    @include tamano(50px,50px);
+}
+
+.dimensionSucursal{
+    @extend .dimension;
+    @include tamano(600px,450px);
+    border-style: none;
+}
+
+.dimensionIndex{
+    @extend .dimension;
+    @extend .dimensionSucursal;
+}
+
+.degrade{
+    background-color:$colorAmarilloFuerte;
+    list-style:none;
+    background-image: linear-gradient($colorAmarilloFuerte, $colorAmarillo);
+}
+
+.linkpagina{
+    color: $colorNegro;
+    font-weight: $fontWeighBold;
+    font-size: $fontSize20;
+}
+@import "bucles";

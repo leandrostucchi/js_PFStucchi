@@ -1,0 +1,32 @@
+
+@for $i from 1 through 3{
+    $tamano: $fontSize100;
+    $color: $colorRojo;
+    $weight: $fontWeighBold;
+    h#{$i}{
+        @if($i == 2){
+            $tamano: $fontSize80;
+        }
+        @if($i == 3){
+            $color: $colorVerde;
+            $weight:$fontWeighBolder;
+            $tamano: $fontSize30;
+        }
+        color: $color;
+        font-weight: $weight; 
+        font-size: $tamano;
+    }
+}
+
+@media (max-width: 576px) {
+    h1{
+        font-size: $fontSize80;
+    }
+  }
+
+
+@media (max-width: 576px) {
+    h2{
+        font-size: $fontSize30;
+    }
+  }
