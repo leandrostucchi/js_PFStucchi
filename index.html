@@ -13,6 +13,7 @@
             <header>
                 <h2> <span class="cabecera centrar">Pedido Right Now</span> </h2>
             </header>
+            <div class="cargar sd-2">Procesando ....</div>
             <section>
                 <div class="col-md-7 col-lg-8">
                     <h3><span class="cabecera">Datos</span></h3>
@@ -75,7 +76,8 @@
                                     <input type="checkbox" class="form-check-input" id="saveinfo">
                                     <label class="form-check-label" for="saveinfo">Desea preservar la info</label>
                                 </div>
-                                 <hr class="my-4">        
+
+                                <hr class="my-4">        
                                     <div class="container">
                                         <h3><span class="cabecera">Pedido</span></h3>
                                         <hr>
@@ -140,13 +142,13 @@
                     <button class="btn btn-danger" type="reset" id="btncancelar">Cancelar</button>
                 </div>
                 <div>
-
+                <div class="alert alert-success hide" role="alert" id="message"> </div>
             </section>
             <!-- cierre de Header -->
         </header>
         <script src="./js/bootstrap.bundle.js" type="text/javascript"></script>
         <script src="./js/variables.js"></script>
         <script src="./js/validaCampos.js"></script>
-        <script src="./js/pedido.js"></script>
+        <script src="./js/pedido.js"></script>        
     </body>
 </html>

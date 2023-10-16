@@ -119,6 +119,7 @@ function Carga(e) {
      debuguear(analiza,Personas);
      GuardarInfo();
      GuardarMail();
+     EnviarDatos();
 }
 
 function Limpiar() {
@@ -134,8 +135,8 @@ function GuardarInfo() {
             localStorage.setItem("Persona",JPersonas);
         }
         if(saveinfo.checked == false){
-            debuguear(analiza,Personas);
-            localStorage.removeItem("Persona");
+             debuguear(analiza,Personas);
+             localStorage.removeItem("Persona");
         }
     }
 }
@@ -161,6 +162,27 @@ function GuardarMail() {
     }
 }
 
+function EnviarDatos() {
+    message.innerHTML="";
+    debuguear(analiza,"EnviarDatos");
+    let carritoAlmacenado = [];
+    let messageBody = document.createElement("div");
+    messageBody.innerHTML = `<p>Gracias por su compra ${Personas[0].Nombre}. Se enviara a ${Personas[0].EMail} su pedido </p>`;
+    message.append(messageBody);
+   
+    let registros = Object.values(carrito);
+        for(const registro of registros){
+            debuguear(analiza,registro);
+            let firstDiv = document.createElement("div");
+            firstDiv.className="col";
+            let secondDiv = document.createElement("div");
+            let precioporproducto = registro.precio * registro.cantidad;
+            secondDiv.innerHTML = `<p>Producto ${registro.title} a $${registro.precio} cantidad ${registro.cantidad}  => ${precioporproducto} </p>`;
+            firstDiv.append(secondDiv);
+            message.append(firstDiv)
+   }
+    message.className="alert alert-success visible";
+}
 
 function Reemplazar(CaracterDestino) {
     return (palabra,caracterOrigen) =>   palabra.replace(caracterOrigen,CaracterDestino);

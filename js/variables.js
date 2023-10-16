@@ -14,6 +14,10 @@ let Telefono = document.getElementById("Telefono");
 let saveinfo = document.getElementById("saveinfo");
 let sameaddress = document.getElementById("sameaddress");
 
+let message = document.getElementById("message");
+
+
+
 const cards = document.getElementById('cards');
 const templateCard = document.getElementById('template-card').content;
 const items = document.getElementById('items');

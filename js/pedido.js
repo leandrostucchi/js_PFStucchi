@@ -1,5 +1,4 @@
 
-
 document.addEventListener('DOMContentLoaded', ()=>{
 	fetchData();
 	if(localStorage.getItem('carrito')){
@@ -24,6 +23,7 @@ const fetchData = async()=>{
 		{"precio": 200,"id": 3,"title": "Salsa","thumbnailUrl": "imgs/salsa.jpeg"},
 		//{"precio": 450,"id": 4,"title": "Ñoquis","thumbnailUrl": "imgs/ñoquis.jpeg"}
 	];
+
 	pintarCard(data);
 }
 
@@ -81,7 +81,7 @@ const pintarCarrito = ()=> {
 	items.appendChild(fragment);
 
 	pintarFooter();
-
+	debuguear(analiza,Object.values(carrito));
 	localStorage.setItem('carrito', JSON.stringify(carrito));
 
 }
