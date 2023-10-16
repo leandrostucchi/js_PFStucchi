@@ -1,7 +1,3 @@
-const analiza = true;
-const debuguear = (analiza,leyenda) => { if (analiza) {console.log(leyenda) }}
-
-
 let nombre = document.getElementById("nombre");
 let email = document.getElementById("email");
 let email2 = document.getElementById("email2"); 
@@ -15,6 +11,7 @@ let saveinfo = document.getElementById("saveinfo");
 let sameaddress = document.getElementById("sameaddress");
 
 let message = document.getElementById("message");
+let barra = document.getElementById("barra");
 
 
 
@@ -41,8 +38,26 @@ let btncancelar = document.getElementById("btncancelar");
 let carrito = {};
 const lista = [];
 const Personas =  [];
-email2Tit.style.visibility = "hidden"; 
+message.style.visibility = "hidden"; 
+barra.style.visibility = "hidden"; 
 
 
 const fragment = document.createDocumentFragment();
 
+class Persona {
+    constructor(lista){
+        this.Nombre         = lista[0];
+        this.EMail          = lista[1];
+        this.EMail2         = lista[2];
+        this.TipoDocumento  = lista[3];
+        this.Documento      = lista[4];
+        this.Domicilio      = lista[5];
+        this.CodigoPostal   = lista[6];
+        this.Localidad      = lista[7];
+        this.Telefono       = lista[8];
+     }
+}
+
+function  EnMayuscula(palabra){
+    return palabra.toUpperCase(); 
+}

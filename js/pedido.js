@@ -8,6 +8,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
 }
 )
 
+const fetchData = async()=>{
+	try{
+		const res = await fetch('./Datos/productos.json')
+		const data = await res.json()
+		pintarCard(data)
+
+	}catch(error){
+		console.log(error)
+	}
+}
+
+
 cards.addEventListener('click', e =>{
 	addCarrito(e);
 })
@@ -16,16 +28,6 @@ items.addEventListener('click', e=>{
 	btnAccion(e);
 })
 
-const fetchData = async()=>{
-	const data = [
-		{"precio": 150,"id": 1,"title": "Fideos","thumbnailUrl": "imgs/fideos.jpg"},
-		{"precio": 100,"id": 2,"title": "Pan","thumbnailUrl": "imgs/pan.jpeg"},
-		{"precio": 200,"id": 3,"title": "Salsa","thumbnailUrl": "imgs/salsa.jpeg"},
-		//{"precio": 450,"id": 4,"title": "Ñoquis","thumbnailUrl": "imgs/ñoquis.jpeg"}
-	];
-
-	pintarCard(data);
-}
 
 const pintarCard = data=>{
 	data.forEach(item => {

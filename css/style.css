@@ -144,6 +144,35 @@
     background-size: 100% 100%;
   }
 }
+.Carga {
+  height: 30px;
+  aspect-ratio: 3;
+  --c:no-repeat linear-gradient(#514b82 0 0);
+  background: var(--c) 0% 50%, var(--c) 20% 50%, var(--c) 40% 50%, var(--c) 60% 50%, var(--c) 80% 50%, var(--c) 100% 50%;
+  background-size: calc(16.6666666667% + 1px) 50%;
+  animation: l19 1s infinite cubic-bezier(0.5, 170, 0.5, -170);
+}
+
+@keyframes l19 {
+  14.28% {
+    background-position: 0% 51%, 20% 50%, 40% 50%, 60% 50%, 80% 50%, 100% 50%;
+  }
+  28.57% {
+    background-position: 0% 50%, 20% 51%, 40% 50%, 60% 50%, 80% 50%, 100% 50%;
+  }
+  42.85% {
+    background-position: 0% 50%, 20% 50%, 40% 51%, 60% 50%, 80% 50%, 100% 50%;
+  }
+  57.14% {
+    background-position: 0% 50%, 20% 50%, 40% 50%, 60% 51%, 80% 50%, 100% 50%;
+  }
+  71.42% {
+    background-position: 0% 50%, 20% 50%, 40% 50%, 60% 50%, 80% 51%, 100% 50%;
+  }
+  85.71% {
+    background-position: 0% 50%, 20% 50%, 40% 50%, 60% 50%, 80% 50%, 100% 51%;
+  }
+}
 h1 {
   color: rgb(128, 0, 0);
   font-weight: bold;

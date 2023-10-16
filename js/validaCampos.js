@@ -1,58 +1,19 @@
-//saveinfo.addEventListener("input",GuardarInfo);
+nombre.addEventListener("change",ValidaNombre);
+email2.addEventListener("change",ValidaMail);
+TipoDocumento.addEventListener("change",ValidaTipoDocumento);
+Documento.addEventListener("change",ValidaDocumento);
 
-nombre.addEventListener("input",ValidaNombre);
-email.addEventListener("input",AgregoMailConfirmacion);
-email2.addEventListener("input",ValidaMail);
-TipoDocumento.addEventListener("input",ValidaTipoDocumento);
-Documento.addEventListener("input",ValidaDocumento);
 
-btnconfirmar.addEventListener("click",Carga);
-btncancelar.addEventListener("click",Limpiar);
 
 function ValidaNombre() {
     let resultado = "";
-    debuguear(analiza,nombre.value);
-    debuguear(analiza,nombre.value.length);
-    if(nombre.value.length<3) resultado = `tiene menos de 3 letras`;
-    MensajeError(resultado,nombreTit,nombre.name);
-    debuguear(analiza,nombreTit.innerHTML);
-    debuguear(analiza,nombreTit.innerText);
-    debuguear(analiza,nombre.name);
-    
+    // debuguear(analiza,nombre.value);
+    // debuguear(analiza,nombre.value.length);
+    if(nombre.value.length<3) resultado = `Tiene menos de 3 letras`;
+    MensajeError(resultado,nombreTit);
+    return resultado;
 }
 
-function MensajeError(resultado,titulo,nameError) {
-    debuguear(analiza,resultado);
-    let borrar = document.getElementById("error"+ nameError);        
-    if (borrar != null) {
-        debuguear(analiza,borrar);
-        borrar.remove(); 
-    }
-    debuguear(analiza,titulo);
-    if (resultado != "") {
-        let mensaje = document.createElement("div");
-        const att = document.createAttribute("class");
-        mensaje.id = "error"+ nameError;
-        att.value = "div";
-        debuguear(analiza,att);
-        mensaje.setAttributeNode(att);
-        // debuguear(analiza,mensaje.innerHTML);
-        // debuguear(analiza,mensaje.innerText);
-        mensaje.innerHTML = resultado;
-        titulo.appendChild(mensaje);
-    }
-
-    
-}
-
-function AgregoMailConfirmacion() {
-    let resultado = "";
-    if(email.vaule != null || email.value != ""){
-        MensajeError(resultado,email2Tit,email2.name);
-        email2Tit.style.visibility = "visible"; 
-    }
-    
-}
 function ValidaMail() {
     let resultado = "";
     if (!EstadoMail(email.value)) resultado = "Mail incorrecto";
@@ -60,10 +21,8 @@ function ValidaMail() {
     if(resultado == ""){
         if (email.value.toLowerCase() !== email2.value.toLowerCase()) resultado = "Mail distintos";
     }
-    MensajeError(resultado,email2Tit,email2.name);
-    debuguear(analiza,email.value);
-    debuguear(analiza,email2.value);
-    debuguear(analiza,resultado);
+    MensajeError(resultado,email2Tit);
+    return resultado;
 }
 
 function ValidaTipoDocumento() {
@@ -77,7 +36,8 @@ function ValidaTipoDocumento() {
     debuguear(analiza,listaTipoDocumento.find((x)=> x == TipoDocumento.value));
     
 
-    MensajeError(resultado,TipoDocumentoTit,TipoDocumento.name);
+    MensajeError(resultado,TipoDocumentoTit);
+    return resultado;
 }
 
 
@@ -88,6 +48,8 @@ function ValidaDocumento() {
     let reemplazaCaracter = Reemplazar("");
     variable= reemplazaCaracter(variable,".");
     variable= reemplazaCaracter(variable,",");
+    debuguear(analiza,Documento.value);
+    debuguear(analiza,TipoDocumento.value);
     switch (TipoDocumento.value) {
         case "1":
         case "3":
@@ -97,7 +59,8 @@ function ValidaDocumento() {
         default:
             break;
     }
-    MensajeError(resultado,documentoTit,Documento.name);
+    MensajeError(resultado,documentoTit);
+    return resultado;
 }
 
 
@@ -112,15 +75,31 @@ function Carga(e) {
     lista[6]  = CodigoPostal.value;
     lista[7]  = Localidad.value;
     lista[8]  = Telefono.value;
-    debuguear(analiza,lista);
+    //debuguear(analiza,lista);
+    ValidacionPrevia();
     Personas.push(new Persona(lista));
-    debuguear(analiza,Personas);
+    //debuguear(analiza,Personas);
      Normalizacion(Personas);
      debuguear(analiza,Personas);
      GuardarInfo();
      GuardarMail();
-     EnviarDatos();
+     let numero = EnviarDatos();
+     return numero;
 }
+
+function ValidacionPrevia(){
+    let valida = ValidaNombre();
+    if (valida!= "") MensajeError(valida,titulo);
+    valida =  ValidaMail();
+    if (valida!= "") MensajeError(valida,titulo);    
+    valida =  ValidaTipoDocumento();
+    if (valida!= "") MensajeError(valida,titulo);
+    valida =  ValidaDocumento();
+    if (valida!= "") MensajeError(valida,titulo);
+
+}
+
+
 
 function Limpiar() {
     localStorage.clear();
@@ -165,57 +144,34 @@ function GuardarMail() {
 function EnviarDatos() {
     message.innerHTML="";
     debuguear(analiza,"EnviarDatos");
-    let carritoAlmacenado = [];
     let messageBody = document.createElement("div");
-    messageBody.innerHTML = `<p>Gracias por su compra ${Personas[0].Nombre}. Se enviara a ${Personas[0].EMail} su pedido </p>`;
-    message.append(messageBody);
-   
     let registros = Object.values(carrito);
-        for(const registro of registros){
-            debuguear(analiza,registro);
-            let firstDiv = document.createElement("div");
-            firstDiv.className="col";
-            let secondDiv = document.createElement("div");
-            let precioporproducto = registro.precio * registro.cantidad;
-            secondDiv.innerHTML = `<p>Producto ${registro.title} a $${registro.precio} cantidad ${registro.cantidad}  => ${precioporproducto} </p>`;
-            firstDiv.append(secondDiv);
-            message.append(firstDiv)
+    const sumaTotal = registros.reduce((acumula,registro)=> acumula + registro.precio * registro.cantidad,0);
+    debuguear(analiza,"sumaTotal");
+    let numeroOrden = Math.ceil(Math.random()*10000);
+    
+    messageBody.innerHTML = `<p>Gracias por su compra ${Personas[0].Nombre}. Se enviara a ${Personas[0].EMail} el comprobante por un total de $ ${sumaTotal}\n Numero de Pedido ${numeroOrden} </p>`;
+    message.append(messageBody);
+    for(const registro of registros){
+        debuguear(analiza,registro);
+        let firstDiv = document.createElement("div");
+        firstDiv.className="col";
+        let secondDiv = document.createElement("div");
+        let precioporproducto = registro.precio * registro.cantidad;
+        secondDiv.innerHTML = `<p>Producto ${registro.title} a $${registro.precio} cantidad ${registro.cantidad}  => ${precioporproducto} </p>`;
+        firstDiv.append(secondDiv);
+        message.append(firstDiv)
    }
     message.className="alert alert-success visible";
+    return numeroOrden;
 }
 
-function Reemplazar(CaracterDestino) {
-    return (palabra,caracterOrigen) =>   palabra.replace(caracterOrigen,CaracterDestino);
+function EsperaEnvio() {
+    debuguear(analiza,"EsperaEnvio");
+    let firstDiv = document.createElement("div");
+    firstDiv.className="cargar";
+    barra.append(firstDiv)
 }
-
-function EsNumerico(numero){
-    let valor = parseInt(numero);
-    if(typeof(valor) != "number"){
-        return 0;
-    }
-    return valor;
-}
-
-
-
-class Persona {
-    constructor(lista){
-        this.Nombre         = lista[0];
-        this.EMail          = lista[1];
-        this.EMail2         = lista[2];
-        this.TipoDocumento  = lista[3];
-        this.Documento      = lista[4];
-        this.Domicilio      = lista[5];
-        this.CodigoPostal   = lista[6];
-        this.Localidad      = lista[7];
-        this.Telefono       = lista[8];
-     }
-}
-
-function  EnMayuscula(palabra){
-    return palabra.toUpperCase(); 
-}
-
 
 
 function EstadoMail(email) {
